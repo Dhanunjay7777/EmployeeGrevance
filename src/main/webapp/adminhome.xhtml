@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<head>
+    <meta charset="ISO-8859-1" />
+    <title>Admin Home</title>
+    <style>
+        .container {
+            margin-top: 70px;
+            padding: 20px;
+        }
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            height: 400px;
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .card h3 {
+            margin-top: 1px;
+        }
+        .highlight {
+            color: blue;
+            font-size: 4.6em; 
+            font-style: italic;
+            text-align: center;
+        }
+        .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <ui:include src="adminnav.xhtml" />
+    <h:form rendered="#{not empty sessionScope.emps}">
+        <h:panelGroup layout="block" styleClass="container">
+            <h3 align="center">Admin Home</h3>
+            <h:outputText value="Welcome, #{emps.fullname}" style="font-size: 20px; text-align: center; display: block; margin-bottom: 20px;" />
+            <div class="cards">
+                <div class="card">
+                    <i class="fas fa-users icon"></i>
+                    <h3>Number Of Employees</h3>
+                    <h:outputText value="#{adminbean.getemployeescount()}" styleClass="highlight" />
+                </div>
+                <div class="card">
+                    <i class="fas fa-user-tie icon"></i>
+                    <h3>Number Of HR</h3>
+                    <h:outputText value="#{adminbean.gethrcount()}" styleClass="highlight" />
+                </div>
+                <div class="card">
+                    <i class="fas fa-user-shield icon"></i>
+                    <h3>Number Of Admin</h3>
+                    <h:outputText value="#{adminbean.getadmincount()}" styleClass="highlight" />
+                </div>
+            </div>
+        </h:panelGroup>
+    </h:form>
+    <h:outputScript rendered="#{empty sessionScope.emps}">
+        window.location.href = 'sessionexpiry.html';
+    </h:outputScript>
+</body>
+</html>

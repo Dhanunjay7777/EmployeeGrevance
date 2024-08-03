@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+    <title>View My Grievances</title>
+ <style>
+      
+
+
+
+/* Action buttons styling */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0; /* Adjusted margin to bring it closer to the table */
+}
+
+.action-buttons .btn {
+    padding: 8px 16px; /* Adjusted padding to reduce button size */
+    margin: 15px 8px; /* Adjusted margin for better spacing between buttons */
+    text-decoration: none;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    border: none;
+    outline: none;
+    font-size: 14px; /* Adjusted font size for better readability */
+}
+
+.action-buttons .btn.delete {
+    background-color: #e53935; /* Red */
+}
+
+.action-buttons .btn.delete:hover {
+    background-color: #c62828; /* Darker Red */
+}
+
+.action-buttons .btn.update {
+    background-color: #43a047; /* Green */
+}
+
+.action-buttons .btn.update:hover {
+    background-color: #388e3c; /* Darker Green */
+}
+
+.action-buttons .btn.print {
+    background-color: #1e88e5; /* Blue */
+}
+
+.action-buttons .btn.print:hover {
+    background-color: #1565c0; /* Darker Blue */
+}
+
+.action-buttons .btn.download {
+    background-color: #fb8c00; /* Orange */
+}
+
+.action-buttons .btn.download:hover {
+    background-color: #ef6c00; /* Darker Orange */
+}
+
+/* Table styling */
+.employee-table {
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 20px 200px; /* Add margin to create space above and below the table */
+}
+
+.employee-table th, .employee-table td {
+    border: 1px solid #ddd;
+    padding: 8px; /* Reduced padding to decrease cell height */
+    text-align: center;
+}
+
+.employee-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.employee-table td {
+    background-color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .action-buttons .btn {
+        margin: 50px 50px; /* Adjust margin for better spacing */
+    }
+
+    .employee-table {
+        font-size: 14px; 
+    }
+}
+
+    </style>
+        <script>
+        function printPage() {
+            window.print();
+        }
+
+        function downloadCSV() {
+            const table = document.querySelector('.employee-table');
+            const rows = Array.from(table.querySelectorAll('tr'));
+            const csvContent = rows.map(row => {
+                const cols = Array.from(row.querySelectorAll('td, th'));
+                return cols.map(col => col.textContent).join(',');
+            }).join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'grievances.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
+</h:head> 
+<body> 
+    <ui:include src="adminnav.xhtml" />
+
+<center>
+
+        <h2 style="text-align: center; color: #333; margin-top: 120px;">Welcome, #{emps.fullname}</h2>
+            <h1>View Status Of Grievance</h1>
+        <div class="action-buttons">
+        <button class="btn print" onclick="printPage()">Print</button>
+        <button class="btn download" onclick="downloadCSV()">Download CSV</button>
+    </div>
+    </center>
+
+    <h:form>
+    <h:dataTable value="#{hr.grelist}" var="gre" border="1" class="employee-table">
+        <h:column>
+            <f:facet name="header">Ticket ID</f:facet>
+            #{gre.ticket_id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Name</f:facet>
+            #{gre.ticket_raiser}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Email</f:facet>
+            #{gre.email}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Contact NO</f:facet>
+            #{gre.contact}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Type Of Grievance</f:facet>
+            #{gre.grievanceType}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Grievance Details</f:facet>
+            #{gre.grievanceDetails}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Location Of Incident</f:facet>
+            #{gre.incidentLocation}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Date Of Incident</f:facet>
+            #{gre.dateofincident}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Responsible Person</f:facet>
+            #{gre.responsiblePerson}
+        </h:column>    
+                <h:column>
+            <f:facet name="header">Gre Status</f:facet>
+            #{gre.gre_status}
+        </h:column>    
+        <h:column>
+                <f:facet name="header">Action</f:facet>
+                <div class="action-buttons">
+                    <h:commandLink value="Delete" action="#{hr.deletegre(gre.ticket_id)}" styleClass="btn delete" />
+                    <h:commandLink value="Update" action="#{adminbean.updategreRedirect(gre.ticket_id, gre.ticket_raiser, gre.responsiblePerson, gre.gre_status)}" styleClass="btn update" />
+                </div>
+            </h:column>  
+    </h:dataTable>
+        </h:form>
+    
+</body> 
+</html>

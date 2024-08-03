@@ -1,0 +1,73 @@
+/* Base styles for the side navbar */
+.sidenav {
+    height: 100%;
+    width: 200px; /* Decreased width of the side navbar */
+    position: fixed;
+    top: 100px;
+    left: 0;
+    background-color: #2c3e50; /* Darker blue-grey background color */
+    overflow-x: hidden;
+    transition: 0.3s; /* Adjusted transition for smooth closing */
+    padding-top: 20px;
+    color: #ecf0f1; /* Light grey text color */
+    z-index: 1;
+}
+
+/* Links inside the side navbar */
+.sidenav a {
+    padding: 15px 20px; /* Adjusted padding */
+    text-decoration: none;
+    font-size: 16px; /* Decreased font size */
+    color: #ecf0f1; /* Light grey text color */
+    display: block;
+    transition: 0.3s;
+}
+
+/* On hover */
+.sidenav a:hover {
+    color: #3498db; /* Bright blue on hover */
+    background-color: #34495e; /* Slightly lighter background color on hover */
+}
+
+/* Toggle button */
+.sidenav .icon {
+    position: absolute;
+    top: 20px;
+    right: -40px; /* Adjusted position for the toggle icon */
+    font-size: 20px;
+    color: #ecf0f1; /* Light grey color for the toggle icon */
+    cursor: pointer;
+}
+
+
+/* Content area */
+.content {
+    margin-left: 200px; /* Adjust based on the decreased width of the side navbar */
+    padding: 20px;
+    background-color: #f9f9f9; /* Light grey background color for content */
+    min-height: 100vh; /* Ensure content area covers full viewport height */
+}
+
+header {
+    background-color: #2c3e50; /* Bright blue background color */
+    color: white;
+    padding: 10px; /* Decreased padding */
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0px; /* Adjust based on the decreased width of the side navbar */
+    width: 100%; /* Adjust to fit the remaining width */
+    z-index: 2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for header */
+}
+
+/* Header content styles */
+.header-content {
+    max-width: 1000px; /* Decreased max width */
+    margin: 0 auto;
+}
+
+/* Adjust content margin for header */
+.content {
+    margin-top: 50px; /* Adjust based on the decreased height of the header */
+}

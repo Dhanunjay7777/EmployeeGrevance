@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+
+
+    <title>View HR Employees</title>
+    <style>
+
+
+/* Header styling */
+h3 {
+    text-align: center;
+    margin-top: 100px;
+    color: #333;
+}
+
+/* DataTable styling */
+.employee-table {
+    margin:100px 230px;
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for a raised effect */
+    overflow: hidden; /* Hide overflow to prevent horizontal scrolling */
+}
+
+.employee-table th, .employee-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.employee-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.employee-table td {
+    background-color: #fff;
+}
+
+/* Action buttons styling */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Increase top margin for better spacing */
+}
+
+.action-buttons .btn {
+    padding: 12px 24px; /* Increase padding for better button size */
+    margin: 0 10px; /* Adjust margin for better spacing between buttons */
+    text-decoration: none;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    border: none;
+    outline: none;
+    font-size: 16px; /* Increase font size for better readability */
+}
+
+.action-buttons .btn.delete {
+    background-color: #e53935; /* Red */
+}
+
+.action-buttons .btn.delete:hover {
+    background-color: #c62828; /* Darker Red */
+}
+
+.action-buttons .btn.update {
+    background-color: #43a047; /* Green */
+}
+
+.action-buttons .btn.update:hover {
+    background-color: #388e3c; /* Darker Green */
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    .employee-table {
+        font-size: 14px; /* Reduce font size for smaller screens */
+    }
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .action-buttons .btn {
+        margin: 10px 0; /* Adjust margin for better spacing */
+    }
+}
+
+        
+    </style>
+</h:head>
+
+<body>
+    <ui:include src="hrnav.xhtml" />
+
+    <h3><u>View All Employees</u></h3>
+    
+    <h:form>
+
+        <h:dataTable value="#{emp.emphrlist}" var="emps" border="1" class="employee-table">
+            <h:column>
+                <f:facet name="header">ID</f:facet>
+                #{emps.id}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                #{emps.fullname}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Email</f:facet>
+                #{emps.email}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Gender</f:facet>
+                #{emps.gender}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Marital Status</f:facet>
+                #{emps.marital_status}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Blood Group</f:facet>
+                #{emps.blood_group}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Contact no</f:facet>
+                #{emps.contactno}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Address</f:facet>
+                #{emps.address}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Position</f:facet>
+                #{emps.position_title}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Department</f:facet>
+                #{emps.department}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Date Of Join</f:facet>
+                #{emps.date_of_joining}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Salary</f:facet>
+                #{emps.salary}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Experience</f:facet>
+                #{emps.years_of_experience}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Emergency Contact Name</f:facet>
+                #{emps.emergency_contact_name}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Emergency Contact No</f:facet>
+                #{emps.emergency_contact_number}
+            </h:column>
+            <h:column>
+                <f:facet name="header">National ID</f:facet>
+                #{emps.national_id_number}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Bank Details</f:facet>
+                #{emps.bank_account_details}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Previous Employee</f:facet>
+                #{emps.previous_employer}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Education Qualification</f:facet>
+                #{emps.education_qualification}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Skills</f:facet>
+                #{emps.skills}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Status</f:facet>
+                #{emps.status}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Role</f:facet>
+                #{emps.role}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <div class="action-buttons">
+                    <h:commandLink value="Delete" action="#{emp.deletehremployee(emps.id)}" styleClass="btn delete" />
+                    <h:commandLink value="Update" action="#{adminbean.updatehrRedirect(emps.id, emps.fullname, emps.email, emps.gender, emps.marital_status, emps.contactno, emps.salary,emps.status)}" styleClass="btn update" />
+                </div>
+            </h:column>
+        </h:dataTable>
+    </h:form>
+    
+  <h:outputScript rendered="#{empty sessionScope.emps}">
+        window.location.href = 'sessionexpiry.html';
+    </h:outputScript>
+</body>
+</html>
